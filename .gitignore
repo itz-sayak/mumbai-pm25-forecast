@@ -1,0 +1,9 @@
+data/
+submissions/
+__pycache__/
+torchinductor_*/
+viz/cache/
+viz/fetch.log
+.claude/
+notebooks/
+*.pyc
