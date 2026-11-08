@@ -1,0 +1,491 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="960" viewBox="0 0 1600 960"><defs><marker id="ar" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#52514e"/></marker><marker id="arb" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2a78d6"/></marker><marker id="arv" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6250d6"/></marker><marker id="ard" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#d55181"/></marker><marker id="arg" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#b9b8b3"/></marker></defs><rect width="1600" height="960" fill="#ffffff"/><text x="20.0" y="34.0" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" fill="#0b0b0b" text-anchor="start" >Regime-aware foundation-model ensemble with a best-of-two hedge</text>
+<text x="20.0" y="57.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="400" fill="#52514e" text-anchor="start" >Hourly PM2.5 at 4 Mumbai stations · forecast origin T0, horizon 84 h · private window = 11–12 Nov 2026 (Diwali +3/+4), leads ≈ 3–51 h from the final run</text>
+<rect x="1150.0" y="20.0" width="56.0" height="20.0" rx="10" fill="#fff4d6" stroke="#eda100" stroke-width="1.2" />
+<polygon points="1162.0,23.5 1163.7,27.6 1168.2,28.0 1164.8,30.9 1165.8,35.3 1162.0,32.9 1158.2,35.3 1159.2,30.9 1155.8,28.0 1160.3,27.6" fill="#eda100" stroke="#eda100" stroke-width="1" stroke-linejoin="round"/>
+<text x="1172.0" y="34.5" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#6b4800" text-anchor="start" >novel</text>
+<text x="1214.0" y="34.5" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start" >our component</text>
+<line x1="1320.0" y1="30.0" x2="1350.0" y2="30.0" stroke="#52514e" stroke-width="1.6" marker-end="url(#ar)" stroke-linecap="round" />
+<text x="1356.0" y="34.5" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start" >known-future covariates</text>
+<line x1="1320.0" y1="50.0" x2="1350.0" y2="50.0" stroke="#52514e" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#ar)" stroke-linecap="round" />
+<text x="1356.0" y="54.5" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start" >past-only context (≤ T0)</text>
+<circle cx="31" cy="94" r="11" fill="#0b0b0b"/>
+<text x="31.0" y="98.5" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle" >1</text>
+<text x="49.0" y="99.0" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#0b0b0b" text-anchor="start" >Data</text>
+<line x1="20.0" y1="114.0" x2="242.0" y2="114.0" stroke="#d9d8d4" stroke-width="1.2" stroke-linecap="round" />
+<circle cx="283" cy="94" r="11" fill="#0b0b0b"/>
+<text x="283.0" y="98.5" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle" >2</text>
+<text x="301.0" y="99.0" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#0b0b0b" text-anchor="start" >Context &amp; covariates</text>
+<line x1="272.0" y1="114.0" x2="534.0" y2="114.0" stroke="#d9d8d4" stroke-width="1.2" stroke-linecap="round" />
+<circle cx="577" cy="94" r="11" fill="#0b0b0b"/>
+<text x="577.0" y="98.5" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle" >3</text>
+<text x="595.0" y="99.0" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#0b0b0b" text-anchor="start" >Forecast members (10)</text>
+<line x1="566.0" y1="114.0" x2="954.0" y2="114.0" stroke="#d9d8d4" stroke-width="1.2" stroke-linecap="round" />
+<circle cx="997" cy="94" r="11" fill="#0b0b0b"/>
+<text x="997.0" y="98.5" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle" >4</text>
+<text x="1015.0" y="99.0" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#0b0b0b" text-anchor="start" >Regime-aware blending</text>
+<line x1="986.0" y1="114.0" x2="1278.0" y2="114.0" stroke="#d9d8d4" stroke-width="1.2" stroke-linecap="round" />
+<circle cx="1321" cy="94" r="11" fill="#0b0b0b"/>
+<text x="1321.0" y="98.5" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle" >5</text>
+<text x="1339.0" y="99.0" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#0b0b0b" text-anchor="start" >Best-of-two decision</text>
+<line x1="1310.0" y1="114.0" x2="1580.0" y2="114.0" stroke="#d9d8d4" stroke-width="1.2" stroke-linecap="round" />
+<rect x="20.0" y="126.0" width="222.0" height="116.0" rx="9" fill="#f4f4f2" stroke="#8a8984" stroke-width="1.4" />
+<path d="M29,126 h0 a0 0 0 0 0 0 0" fill="none"/>
+<rect x="20.0" y="135.0" width="4.5" height="98.0" rx="2" fill="#8a8984" stroke="none" stroke-width="1.5" />
+<text x="34.0" y="147.0" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#0b0b0b" text-anchor="start" >Station PM2.5</text>
+<text x="34.0" y="167.0" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start" >CPCB, via OpenAQ</text>
+<text x="34.0" y="183.5" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start" >46 Mumbai series (4 targets)</text>
+<text x="34.0" y="200.0" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start" >fresh hours up to T0</text>
+<rect x="174.0" y="217.0" width="60.0" height="18.0" rx="9.0" fill="#ffffff" stroke="#8a8984" stroke-width="1.2" />
+<text x="204.0" y="230.0" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="400" fill="#52514e" text-anchor="middle" >target</text>
+<rect x="20.0" y="254.0" width="222.0" height="116.0" rx="9" fill="#f4f4f2" stroke="#8a8984" stroke-width="1.4" />
+<path d="M29,254 h0 a0 0 0 0 0 0 0" fill="none"/>
+<rect x="20.0" y="263.0" width="4.5" height="98.0" rx="2" fill="#8a8984" stroke="none" stroke-width="1.5" />
+<text x="34.0" y="275.0" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#0b0b0b" text-anchor="start" >NWP forecasts, as issued</text>
+<text x="34.0" y="295.0" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start" >Open-Meteo Previous-Runs</text>
+<text x="34.0" y="311.5" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start" >lead-matched, day 1–3</text>
+<text x="34.0" y="328.0" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start" >BLH, wind u/v, RH, T, rain</text>
+<rect x="132.0" y="345.0" width="102.0" height="18.0" rx="9.0" fill="#ffffff" stroke="#8a8984" stroke-width="1.2" />
+<text x="183.0" y="358.0" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="400" fill="#52514e" text-anchor="middle" >known future</text>
+<rect x="20.0" y="382.0" width="222.0" height="98.0" rx="9" fill="#f4f4f2" stroke="#8a8984" stroke-width="1.4" />
+<path d="M29,382 h0 a0 0 0 0 0 0 0" fill="none"/>
+<rect x="20.0" y="391.0" width="4.5" height="80.0" rx="2" fill="#8a8984" stroke="none" stroke-width="1.5" />
+<text x="34.0" y="403.0" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#0b0b0b" text-anchor="start" >CAMS PM2.5 forecast</text>
+<text x="34.0" y="423.0" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start" >global atmospheric-</text>
+<text x="34.0" y="439.5" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start" >composition model</text>
+<rect x="132.0" y="455.0" width="102.0" height="18.0" rx="9.0" fill="#ffffff" stroke="#8a8984" stroke-width="1.2" />
+<text x="183.0" y="468.0" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="400" fill="#52514e" text-anchor="middle" >known future</text>
+<rect x="20.0" y="492.0" width="222.0" height="116.0" rx="9" fill="#f4f4f2" stroke="#8a8984" stroke-width="1.4" />
+<path d="M29,492 h0 a0 0 0 0 0 0 0" fill="none"/>
+<rect x="20.0" y="501.0" width="4.5" height="98.0" rx="2" fill="#8a8984" stroke="none" stroke-width="1.5" />
+<text x="34.0" y="513.0" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#0b0b0b" text-anchor="start" >OpenAQ neighbourhood</text>
+<text x="34.0" y="533.0" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start" >neighbour PM2.5 stations</text>
+<text x="34.0" y="549.5" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start" >PM10, NO₂, CO, O₃</text>
+<text x="34.0" y="566.0" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start" >station anemometer</text>
+<rect x="153.0" y="583.0" width="81.0" height="18.0" rx="9.0" fill="#ffffff" stroke="#8a8984" stroke-width="1.2" stroke-dasharray="4 3" />
+<text x="193.5" y="596.0" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="400" fill="#52514e" text-anchor="middle" >past only</text>
+<rect x="20.0" y="620.0" width="222.0" height="98.0" rx="9" fill="#f4f4f2" stroke="#8a8984" stroke-width="1.4" />
+<path d="M29,620 h0 a0 0 0 0 0 0 0" fill="none"/>
+<rect x="20.0" y="629.0" width="4.5" height="80.0" rx="2" fill="#8a8984" stroke="none" stroke-width="1.5" />
+<text x="34.0" y="641.0" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#0b0b0b" text-anchor="start" >Festival calendar</text>
+<text x="34.0" y="661.0" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start" >Diwali fireworks nights</text>
+<text x="34.0" y="677.5" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start" >Dhanteras … Bhai Dooj</text>
+<rect x="132.0" y="693.0" width="102.0" height="18.0" rx="9.0" fill="#ffffff" stroke="#8a8984" stroke-width="1.2" />
+<text x="183.0" y="706.0" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="400" fill="#52514e" text-anchor="middle" >known future</text>
+<rect x="272.0" y="126.0" width="262.0" height="72.0" rx="9" fill="#e8f7f0" stroke="#1baf7a" stroke-width="1.4" />
+<path d="M281,126 h0 a0 0 0 0 0 0 0" fill="none"/>
+<rect x="272.0" y="135.0" width="4.5" height="54.0" rx="2" fill="#1baf7a" stroke="none" stroke-width="1.5" />
+<text x="286.0" y="147.0" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#0b0b0b" text-anchor="start" >Cleaning &amp; alignment</text>
+<text x="286.0" y="167.0" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start" >drop ≤0 / &gt;1000, stuck ≥ 6 h, spikes;</text>
+<text x="286.0" y="183.5" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start" >hour-end IST grid, lead matching</text>
+<rect x="272.0" y="210.0" width="262.0" height="96.0" rx="9" fill="#e8f7f0" stroke="#1baf7a" stroke-width="1.4" />
+<path d="M281,210 h0 a0 0 0 0 0 0 0" fill="none"/>
+<rect x="272.0" y="219.0" width="4.5" height="78.0" rx="2" fill="#1baf7a" stroke="none" stroke-width="1.5" />
+<text x="286.0" y="231.0" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#0b0b0b" text-anchor="start" >Relative CAMS</text>
+<rect x="470.0" y="217.0" width="56.0" height="20.0" rx="10" fill="#fff4d6" stroke="#eda100" stroke-width="1.2" />
+<polygon points="482.0,220.5 483.7,224.6 488.2,225.0 484.8,227.9 485.8,232.3 482.0,229.9 478.2,232.3 479.2,227.9 475.8,225.0 480.3,224.6" fill="#eda100" stroke="#eda100" stroke-width="1" stroke-linejoin="round"/>
+<text x="492.0" y="231.5" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#6b4800" text-anchor="start" >novel</text>
+<text x="286.0" y="256.0" fill="#0b0b0b" text-anchor="start" font-family="'Cambria Math', 'Times New Roman', serif"><tspan dy="0.00" font-size="15.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">r</tspan><tspan dy="4.34" font-size="10.85" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">t</tspan><tspan dy="-4.34" font-size="15.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif"> = </tspan><tspan dy="0.00" font-size="15.50" font-style="normal" font-family="'Cambria Math', 'Times New Roman', serif">CAMS</tspan><tspan dy="4.34" font-size="10.85" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">t</tspan><tspan dy="-4.34" font-size="15.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif"> / ⟨</tspan><tspan dy="0.00" font-size="15.50" font-style="normal" font-family="'Cambria Math', 'Times New Roman', serif">CAMS</tspan><tspan dy="0.00" font-size="15.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">⟩</tspan><tspan dy="4.34" font-size="10.85" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">T0−72h … T0</tspan></text>
+<text x="286.0" y="278.0" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start" >removes year-to-year CAMS drift</text>
+<text x="286.0" y="294.5" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start" >(GBDT recent fold 19.3 → 13.2)</text>
+<rect x="272.0" y="318.0" width="262.0" height="214.0" rx="9" fill="#e8f7f0" stroke="#1baf7a" stroke-width="1.4" />
+<path d="M281,318 h0 a0 0 0 0 0 0 0" fill="none"/>
+<rect x="272.0" y="327.0" width="4.5" height="196.0" rx="2" fill="#1baf7a" stroke="none" stroke-width="1.5" />
+<text x="286.0" y="339.0" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#0b0b0b" text-anchor="start" >Lagrangian upwind signal</text>
+<rect x="470.0" y="325.0" width="56.0" height="20.0" rx="10" fill="#fff4d6" stroke="#eda100" stroke-width="1.2" />
+<polygon points="482.0,328.5 483.7,332.6 488.2,333.0 484.8,335.9 485.8,340.3 482.0,337.9 478.2,340.3 479.2,335.9 475.8,333.0 480.3,332.6" fill="#eda100" stroke="#eda100" stroke-width="1" stroke-linejoin="round"/>
+<text x="492.0" y="339.5" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#6b4800" text-anchor="start" >novel</text>
+<rect x="288.0" y="352.0" width="118.0" height="92.0" rx="6" fill="#ffffff" stroke="#d9d8d4" stroke-width="1" />
+<line x1="296.0" y1="370.0" x2="318.0" y2="370.0" stroke="#b9b8b3" stroke-width="1.4" marker-end="url(#arg)" stroke-linecap="round" />
+<line x1="296.0" y1="396.0" x2="318.0" y2="396.0" stroke="#b9b8b3" stroke-width="1.4" marker-end="url(#arg)" stroke-linecap="round" />
+<line x1="296.0" y1="422.0" x2="318.0" y2="422.0" stroke="#b9b8b3" stroke-width="1.4" marker-end="url(#arg)" stroke-linecap="round" />
+<text x="307.0" y="440.0" font-family="'Cambria Math', 'Times New Roman', serif" font-size="12" font-weight="400" fill="#8a8984" text-anchor="middle" font-style="italic" >u</text>
+<line x1="334.0" y1="382.0" x2="377.0" y2="399.4" stroke="#1baf7a" stroke-width="3.2" stroke-linecap="round" />
+<circle cx="334" cy="382" r="5" fill="#ffffff" stroke="#1baf7a" stroke-width="1.6"/>
+<text x="325.0" y="375.0" font-family="'Cambria Math', 'Times New Roman', serif" font-size="11.5" font-weight="400" fill="#52514e" text-anchor="middle" font-style="italic" >j₁</text>
+<line x1="342.0" y1="430.0" x2="377.0" y2="405.9" stroke="#1baf7a" stroke-width="1.4" stroke-linecap="round" />
+<circle cx="342" cy="430" r="5" fill="#ffffff" stroke="#1baf7a" stroke-width="1.6"/>
+<text x="333.0" y="423.0" font-family="'Cambria Math', 'Times New Roman', serif" font-size="11.5" font-weight="400" fill="#52514e" text-anchor="middle" font-style="italic" >j₂</text>
+<line x1="396.0" y1="370.0" x2="384.0" y2="402.0" stroke="#b9b8b3" stroke-width="1.0" stroke-dasharray="2 3" stroke-linecap="round" />
+<circle cx="396" cy="370" r="5" fill="#ffffff" stroke="#1baf7a" stroke-width="1.6"/>
+<text x="404.0" y="363.0" font-family="'Cambria Math', 'Times New Roman', serif" font-size="11.5" font-weight="400" fill="#52514e" text-anchor="middle" font-style="italic" >j₃</text>
+<circle cx="384" cy="402" r="6.5" fill="#1baf7a"/>
+<text x="385.0" y="424.0" font-family="'Cambria Math', 'Times New Roman', serif" font-size="12" font-weight="400" fill="#52514e" text-anchor="middle" font-style="italic" >i</text>
+<text x="416.0" y="366.0" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#52514e" text-anchor="start" >smoke reaches</text>
+<text x="416.0" y="381.5" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#52514e" text-anchor="start" >station i from</text>
+<text x="416.0" y="397.0" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#52514e" text-anchor="start" >upwind neighbour</text>
+<text x="416.0" y="412.5" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#52514e" text-anchor="start" >j after travel</text>
+<text x="416.0" y="428.0" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#52514e" text-anchor="start" >time τ</text>
+<text x="286.0" y="468.0" fill="#0b0b0b" text-anchor="start" font-family="'Cambria Math', 'Times New Roman', serif"><tspan dy="0.00" font-size="15.00" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">S</tspan><tspan dy="4.20" font-size="10.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">i</tspan><tspan dy="-4.20" font-size="15.00" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">(t) = Σ</tspan><tspan dy="4.20" font-size="10.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">j</tspan><tspan dy="-4.20" font-size="15.00" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif"> w</tspan><tspan dy="4.20" font-size="10.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">ij</tspan><tspan dy="-4.20" font-size="15.00" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif"> C</tspan><tspan dy="4.20" font-size="10.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">j</tspan><tspan dy="-4.20" font-size="15.00" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">(t − τ</tspan><tspan dy="4.20" font-size="10.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">ij</tspan><tspan dy="-4.20" font-size="15.00" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">) / Σ</tspan><tspan dy="4.20" font-size="10.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">j</tspan><tspan dy="-4.20" font-size="15.00" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif"> w</tspan><tspan dy="4.20" font-size="10.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">ij</tspan></text>
+<text x="286.0" y="492.0" fill="#0b0b0b" text-anchor="start" font-family="'Cambria Math', 'Times New Roman', serif"><tspan dy="0.00" font-size="15.00" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">w</tspan><tspan dy="4.20" font-size="10.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">ij</tspan><tspan dy="-4.20" font-size="15.00" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif"> = </tspan><tspan dy="0.00" font-size="15.00" font-style="normal" font-family="'Cambria Math', 'Times New Roman', serif">max</tspan><tspan dy="0.00" font-size="15.00" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">(0, </tspan><tspan dy="0.00" font-size="15.00" font-style="normal" font-family="'Cambria Math', 'Times New Roman', serif">cos</tspan><tspan dy="0.00" font-size="15.00" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif"> θ</tspan><tspan dy="4.20" font-size="10.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">ij</tspan><tspan dy="-4.20" font-size="15.00" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">) e</tspan><tspan dy="-6.00" font-size="10.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">−d</tspan><tspan dy="2.94" font-size="7.35" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">ij</tspan><tspan dy="-2.94" font-size="10.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">/ℓ</tspan></text>
+<text x="286.0" y="516.0" fill="#0b0b0b" text-anchor="start" font-family="'Cambria Math', 'Times New Roman', serif"><tspan dy="0.00" font-size="15.00" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">τ</tspan><tspan dy="4.20" font-size="10.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">ij</tspan><tspan dy="-4.20" font-size="15.00" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif"> = d</tspan><tspan dy="4.20" font-size="10.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">ij</tspan><tspan dy="-4.20" font-size="15.00" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif"> / |u|</tspan></text>
+<text x="524.0" y="516.0" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" fill="#8a8984" text-anchor="end" >u: anemometer, else NWP</text>
+<rect x="272.0" y="544.0" width="262.0" height="64.0" rx="9" fill="#e8f7f0" stroke="#1baf7a" stroke-width="1.4" />
+<path d="M281,544 h0 a0 0 0 0 0 0 0" fill="none"/>
+<rect x="272.0" y="553.0" width="4.5" height="46.0" rx="2" fill="#1baf7a" stroke="none" stroke-width="1.5" />
+<text x="286.0" y="565.0" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#0b0b0b" text-anchor="start" >Fireworks-night flag</text>
+<text x="286.0" y="586.0" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start" >18:00–02:00 IST, Diwali −2 … +2</text>
+<rect x="272.0" y="620.0" width="262.0" height="98.0" rx="9" fill="#e8f7f0" stroke="#1baf7a" stroke-width="1.4" />
+<path d="M281,620 h0 a0 0 0 0 0 0 0" fill="none"/>
+<rect x="272.0" y="629.0" width="4.5" height="80.0" rx="2" fill="#1baf7a" stroke="none" stroke-width="1.5" />
+<text x="286.0" y="641.0" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#0b0b0b" text-anchor="start" >Past-only context</text>
+<text x="286.0" y="661.0" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start" >target history, neighbour median /</text>
+<text x="286.0" y="677.5" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start" >nearest, co-pollutants, station</text>
+<text x="286.0" y="694.0" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start" >wind; never read beyond T0</text>
+<path d="M245,184.0 C257.0,184.0 257.0,162.0 267,162.0" fill="none" stroke="#52514e" stroke-width="1.4" marker-end="url(#ar)"/>
+<path d="M245,300.0 C257.0,300.0 257.0,172.0 267,172.0" fill="none" stroke="#52514e" stroke-width="1.4" marker-end="url(#ar)"/>
+<path d="M245,431.0 C257.0,431.0 257.0,258.0 267,258.0" fill="none" stroke="#52514e" stroke-width="1.4" marker-end="url(#ar)"/>
+<path d="M245,312.0 C257.0,312.0 257.0,395.0 267,395.0" fill="none" stroke="#52514e" stroke-width="1.4" marker-end="url(#ar)"/>
+<path d="M245,550.0 C257.0,550.0 257.0,435.0 267,435.0" fill="none" stroke="#52514e" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#ar)"/>
+<path d="M245,669.0 C257.0,669.0 257.0,576.0 267,576.0" fill="none" stroke="#52514e" stroke-width="1.4" marker-end="url(#ar)"/>
+<path d="M245,564.0 C257.0,564.0 257.0,660.0 267,660.0" fill="none" stroke="#52514e" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#ar)"/>
+<rect x="566.0" y="126.0" width="388.0" height="168.0" rx="9" fill="#eaf2fc" stroke="#2a78d6" stroke-width="1.4" />
+<path d="M575,126 h0 a0 0 0 0 0 0 0" fill="none"/>
+<rect x="566.0" y="135.0" width="4.5" height="150.0" rx="2" fill="#2a78d6" stroke="none" stroke-width="1.5" />
+<text x="580.0" y="147.0" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#0b0b0b" text-anchor="start" >Zero-shot time-series foundation models</text>
+<text x="580.0" y="166.0" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start" >past + known-future covariates · mean of predicted quantiles</text>
+<text x="740.0" y="192.0" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#52514e" text-anchor="middle" >ctx 1024 h</text>
+<text x="824.0" y="192.0" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#52514e" text-anchor="middle" >ctx 2048 h</text>
+<text x="908.0" y="192.0" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#52514e" text-anchor="middle" >+ upwind Sᵢ</text>
+<text x="582.0" y="222.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#0b0b0b" text-anchor="start" >Chronos-2</text>
+<rect x="702.0" y="204.0" width="76.0" height="26.0" rx="13" fill="#ffffff" stroke="#2a78d6" stroke-width="1.3" />
+<circle cx="740.0" cy="217" r="4.5" fill="#2a78d6"/>
+<rect x="786.0" y="204.0" width="76.0" height="26.0" rx="13" fill="#ffffff" stroke="#2a78d6" stroke-width="1.3" />
+<circle cx="824.0" cy="217" r="4.5" fill="#2a78d6"/>
+<rect x="870.0" y="204.0" width="76.0" height="26.0" rx="13" fill="#ffffff" stroke="#2a78d6" stroke-width="1.3" />
+<circle cx="908.0" cy="217" r="4.5" fill="#2a78d6"/>
+<text x="582.0" y="260.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#0b0b0b" text-anchor="start" >Timestral-209M</text>
+<rect x="702.0" y="242.0" width="76.0" height="26.0" rx="13" fill="#ffffff" stroke="#2a78d6" stroke-width="1.3" />
+<circle cx="740.0" cy="255" r="4.5" fill="#2a78d6"/>
+<rect x="786.0" y="242.0" width="76.0" height="26.0" rx="13" fill="#ffffff" stroke="#2a78d6" stroke-width="1.3" />
+<circle cx="824.0" cy="255" r="4.5" fill="#2a78d6"/>
+<rect x="870.0" y="242.0" width="76.0" height="26.0" rx="13" fill="#ffffff" stroke="#2a78d6" stroke-width="1.3" />
+<circle cx="908.0" cy="255" r="4.5" fill="#2a78d6"/>
+<text x="942.0" y="284.0" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#8a8984" text-anchor="end" >6 members</text>
+<rect x="566.0" y="306.0" width="388.0" height="76.0" rx="9" fill="#eaf2fc" stroke="#2a78d6" stroke-width="1.4" />
+<path d="M575,306 h0 a0 0 0 0 0 0 0" fill="none"/>
+<rect x="566.0" y="315.0" width="4.5" height="58.0" rx="2" fill="#2a78d6" stroke="none" stroke-width="1.5" />
+<text x="580.0" y="327.0" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#0b0b0b" text-anchor="start" >Chronos-2, fine-tuned</text>
+<text x="580.0" y="347.0" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start" >all Mumbai series · 800 steps · data ≤ T0 only</text>
+<text x="580.0" y="363.5" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start" >learns the fireworks response from past Diwalis</text>
+<rect x="566.0" y="394.0" width="388.0" height="76.0" rx="9" fill="#fdefe8" stroke="#eb6834" stroke-width="1.4" />
+<path d="M575,394 h0 a0 0 0 0 0 0 0" fill="none"/>
+<rect x="566.0" y="403.0" width="4.5" height="58.0" rx="2" fill="#eb6834" stroke="none" stroke-width="1.5" />
+<text x="580.0" y="415.0" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#0b0b0b" text-anchor="start" >LightGBM, direct multi-horizon</text>
+<text x="580.0" y="435.0" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start" >raw + ratio target (2 members) · 3 seeds</text>
+<text x="580.0" y="451.5" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start" >relative CAMS, lags, neighbours, co-pollutants</text>
+<rect x="566.0" y="482.0" width="388.0" height="236.0" rx="9" fill="#e8f4e8" stroke="#008300" stroke-width="1.4" />
+<path d="M575,482 h0 a0 0 0 0 0 0 0" fill="none"/>
+<rect x="566.0" y="491.0" width="4.5" height="218.0" rx="2" fill="#008300" stroke="none" stroke-width="1.5" />
+<text x="580.0" y="503.0" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#0b0b0b" text-anchor="start" >PIBM: physics-informed box model</text>
+<rect x="890.0" y="489.0" width="56.0" height="20.0" rx="10" fill="#fff4d6" stroke="#eda100" stroke-width="1.2" />
+<polygon points="902.0,492.5 903.7,496.6 908.2,497.0 904.8,499.9 905.8,504.3 902.0,501.9 898.2,504.3 899.2,499.9 895.8,497.0 900.3,496.6" fill="#eda100" stroke="#eda100" stroke-width="1" stroke-linejoin="round"/>
+<text x="912.0" y="503.5" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#6b4800" text-anchor="start" >novel</text>
+<rect x="584" y="534" width="104" height="72" fill="#ffffff" stroke="#008300" stroke-width="1.4" stroke-dasharray="5 3" rx="3"/>
+<line x1="578.0" y1="606.0" x2="694.0" y2="606.0" stroke="#52514e" stroke-width="1.6" stroke-linecap="round" />
+<line x1="592.0" y1="538.0" x2="592.0" y2="602.0" stroke="#8a8984" stroke-width="1.0" marker-end="url(#arg)" stroke-linecap="round" />
+<line x1="592.0" y1="602.0" x2="592.0" y2="538.0" stroke="#8a8984" stroke-width="1.0" marker-end="url(#arg)" stroke-linecap="round" />
+<text x="598.0" y="570.0" fill="#52514e" text-anchor="start" font-family="'Cambria Math', 'Times New Roman', serif"><tspan dy="0.00" font-size="13.00" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">H</tspan><tspan dy="3.64" font-size="9.10" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">t</tspan></text>
+<line x1="630.0" y1="604.0" x2="630.0" y2="570.0" stroke="#008300" stroke-width="2.2" stroke-linecap="round" />
+<path d="M625,576 L630,567 L635,576 z" fill="#008300"/>
+<text x="636.0" y="598.0" fill="#52514e" text-anchor="start" font-family="'Cambria Math', 'Times New Roman', serif"><tspan dy="0.00" font-size="12.00" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">E</tspan><tspan dy="3.36" font-size="8.40" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">s</tspan><tspan dy="-3.36" font-size="12.00" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">(h)</tspan></text>
+<line x1="674.0" y1="560.0" x2="704.0" y2="560.0" stroke="#008300" stroke-width="2.0" stroke-linecap="round" />
+<path d="M700,555 L709,560 L700,565 z" fill="#008300"/>
+<text x="692.0" y="552.0" fill="#52514e" text-anchor="start" font-family="'Cambria Math', 'Times New Roman', serif"><tspan dy="0.00" font-size="12.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">κ</tspan><tspan dy="3.50" font-size="8.75" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">t</tspan></text>
+<text x="646.0" y="550.0" fill="#0b0b0b" text-anchor="start" font-family="'Cambria Math', 'Times New Roman', serif"><tspan dy="0.00" font-size="13.00" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">C</tspan><tspan dy="3.64" font-size="9.10" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">t</tspan></text>
+<text x="714.0" y="538.0" fill="#0b0b0b" text-anchor="start" font-family="'Cambria Math', 'Times New Roman', serif"><tspan dy="0.00" font-size="14.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">C</tspan><tspan dy="4.06" font-size="10.15" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">t+1</tspan><tspan dy="-4.06" font-size="14.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif"> = C</tspan><tspan dy="4.06" font-size="10.15" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">t</tspan><tspan dy="-4.06" font-size="14.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif"> + e</tspan><tspan dy="-5.80" font-size="10.15" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">ε</tspan><tspan dy="2.84" font-size="7.10" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">s</tspan><tspan dy="-2.84" font-size="10.15" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">(h,wk)</tspan><tspan dy="5.80" font-size="14.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif"> / H</tspan><tspan dy="4.06" font-size="10.15" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">t</tspan><tspan dy="-4.06" font-size="14.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif"> − κ</tspan><tspan dy="4.06" font-size="10.15" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">t</tspan><tspan dy="-4.06" font-size="14.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif"> (C</tspan><tspan dy="4.06" font-size="10.15" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">t</tspan><tspan dy="-4.06" font-size="14.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif"> − B</tspan><tspan dy="4.06" font-size="10.15" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">t</tspan><tspan dy="-4.06" font-size="14.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">)</tspan></text>
+<text x="714.0" y="564.0" fill="#0b0b0b" text-anchor="start" font-family="'Cambria Math', 'Times New Roman', serif"><tspan dy="0.00" font-size="14.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">κ</tspan><tspan dy="4.06" font-size="10.15" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">t</tspan><tspan dy="-4.06" font-size="14.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif"> = 1 − </tspan><tspan dy="0.00" font-size="14.50" font-style="normal" font-family="'Cambria Math', 'Times New Roman', serif">exp</tspan><tspan dy="0.00" font-size="14.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">(−(u</tspan><tspan dy="4.06" font-size="10.15" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">t</tspan><tspan dy="-4.06" font-size="14.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">/L</tspan><tspan dy="4.06" font-size="10.15" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">s</tspan><tspan dy="-4.06" font-size="14.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif"> + k</tspan><tspan dy="4.06" font-size="10.15" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">s</tspan><tspan dy="-4.06" font-size="14.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif"> + λ</tspan><tspan dy="4.06" font-size="10.15" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">s</tspan><tspan dy="-4.06" font-size="14.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif"> P</tspan><tspan dy="4.06" font-size="10.15" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">t</tspan><tspan dy="-4.06" font-size="14.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">))</tspan></text>
+<text x="714.0" y="590.0" fill="#0b0b0b" text-anchor="start" font-family="'Cambria Math', 'Times New Roman', serif"><tspan dy="0.00" font-size="14.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">B</tspan><tspan dy="4.06" font-size="10.15" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">t</tspan><tspan dy="-4.06" font-size="14.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif"> = β</tspan><tspan dy="4.06" font-size="10.15" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">s</tspan><tspan dy="-4.06" font-size="14.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif"> · </tspan><tspan dy="0.00" font-size="14.50" font-style="normal" font-family="'Cambria Math', 'Times New Roman', serif">NB</tspan><tspan dy="4.06" font-size="10.15" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">0</tspan><tspan dy="-4.06" font-size="14.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif"> · (</tspan><tspan dy="0.00" font-size="14.50" font-style="normal" font-family="'Cambria Math', 'Times New Roman', serif">CAMS</tspan><tspan dy="4.06" font-size="10.15" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">t</tspan><tspan dy="-4.06" font-size="14.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif"> / </tspan><tspan dy="0.00" font-size="14.50" font-style="normal" font-family="'Cambria Math', 'Times New Roman', serif">CAMS</tspan><tspan dy="4.06" font-size="10.15" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">72</tspan><tspan dy="-4.06" font-size="14.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">)</tspan><tspan dy="-5.80" font-size="10.15" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">γ</tspan><tspan dy="2.84" font-size="7.10" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">s</tspan></text>
+<text x="714.0" y="616.0" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start" >hourly mass balance per station, fitted</text>
+<text x="714.0" y="632.5" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start" >by backpropagation through time; error</text>
+<text x="714.0" y="649.0" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start" >corr. with FMs 0.65 (between FMs: 0.89)</text>
+<line x1="550.0" y1="162.0" x2="550.0" y2="660.0" stroke="#52514e" stroke-width="2.2" stroke-linecap="round" />
+<line x1="535.0" y1="162.0" x2="550.0" y2="162.0" stroke="#52514e" stroke-width="1.4" stroke-linecap="round" />
+<circle cx="550.0" cy="162.0" r="2.8" fill="#52514e"/>
+<line x1="535.0" y1="258.0" x2="550.0" y2="258.0" stroke="#52514e" stroke-width="1.4" stroke-linecap="round" />
+<circle cx="550.0" cy="258.0" r="2.8" fill="#52514e"/>
+<line x1="535.0" y1="425.0" x2="550.0" y2="425.0" stroke="#52514e" stroke-width="1.4" stroke-linecap="round" />
+<circle cx="550.0" cy="425.0" r="2.8" fill="#52514e"/>
+<line x1="535.0" y1="576.0" x2="550.0" y2="576.0" stroke="#52514e" stroke-width="1.4" stroke-linecap="round" />
+<circle cx="550.0" cy="576.0" r="2.8" fill="#52514e"/>
+<line x1="535.0" y1="660.0" x2="550.0" y2="660.0" stroke="#52514e" stroke-width="1.4" stroke-linecap="round" />
+<circle cx="550.0" cy="660.0" r="2.8" fill="#52514e"/>
+<line x1="550.0" y1="210.0" x2="563.0" y2="210.0" stroke="#52514e" stroke-width="1.6" marker-end="url(#ar)" stroke-linecap="round" />
+<line x1="550.0" y1="344.0" x2="563.0" y2="344.0" stroke="#52514e" stroke-width="1.6" marker-end="url(#ar)" stroke-linecap="round" />
+<line x1="550.0" y1="432.0" x2="563.0" y2="432.0" stroke="#52514e" stroke-width="1.6" marker-end="url(#ar)" stroke-linecap="round" />
+<line x1="550.0" y1="600.0" x2="563.0" y2="600.0" stroke="#52514e" stroke-width="1.6" marker-end="url(#ar)" stroke-linecap="round" />
+<rect x="986.0" y="126.0" width="292.0" height="266.0" rx="9" fill="#efedfb" stroke="#6250d6" stroke-width="1.4" />
+<path d="M995,126 h0 a0 0 0 0 0 0 0" fill="none"/>
+<rect x="986.0" y="135.0" width="4.5" height="248.0" rx="2" fill="#6250d6" stroke="none" stroke-width="1.5" />
+<text x="1000.0" y="147.0" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#0b0b0b" text-anchor="start" >NNLS stacking on clean OOF forecasts</text>
+<text x="1000.0" y="166.0" font-family="Arial, Helvetica, sans-serif" font-size="12.3" font-weight="400" fill="#52514e" text-anchor="start" >fit on out-of-fold forecasts at the private</text>
+<text x="1000.0" y="181.5" font-family="Arial, Helvetica, sans-serif" font-size="12.3" font-weight="400" fill="#52514e" text-anchor="start" >lead range (3–51 h); one weight set per 3-h</text>
+<text x="1000.0" y="197.0" font-family="Arial, Helvetica, sans-serif" font-size="12.3" font-weight="400" fill="#52514e" text-anchor="start" >target-hour block, shrunk 50/50 to global</text>
+<text x="1099.2" y="224.0" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="400" fill="#8a8984" text-anchor="middle" >00</text>
+<text x="1119.2" y="224.0" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="400" fill="#8a8984" text-anchor="middle" >03</text>
+<text x="1139.2" y="224.0" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="400" fill="#8a8984" text-anchor="middle" >06</text>
+<text x="1159.2" y="224.0" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="400" fill="#8a8984" text-anchor="middle" >09</text>
+<text x="1179.2" y="224.0" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="400" fill="#8a8984" text-anchor="middle" >12</text>
+<text x="1199.2" y="224.0" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="400" fill="#8a8984" text-anchor="middle" >15</text>
+<text x="1219.2" y="224.0" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="400" fill="#8a8984" text-anchor="middle" >18</text>
+<text x="1239.2" y="224.0" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="400" fill="#8a8984" text-anchor="middle" >21</text>
+<circle cx="1002" cy="236.6" r="3.6" fill="#eb6834"/>
+<text x="1010.0" y="240.6" font-family="Arial, Helvetica, sans-serif" font-size="11.2" font-weight="400" fill="#52514e" text-anchor="start" >GBM raw</text>
+<rect x="1090.0" y="230.0" width="18.5" height="13.2" rx="2" fill="#256abf" stroke="none" stroke-width="1.5" />
+<rect x="1110.0" y="230.0" width="18.5" height="13.2" rx="2" fill="#cde2fb" stroke="none" stroke-width="1.5" />
+<rect x="1130.0" y="230.0" width="18.5" height="13.2" rx="2" fill="#cde2fb" stroke="none" stroke-width="1.5" />
+<rect x="1150.0" y="230.0" width="18.5" height="13.2" rx="2" fill="#9ec5f4" stroke="none" stroke-width="1.5" />
+<rect x="1170.0" y="230.0" width="18.5" height="13.2" rx="2" fill="#cde2fb" stroke="none" stroke-width="1.5" />
+<rect x="1190.0" y="230.0" width="18.5" height="13.2" rx="2" fill="#cde2fb" stroke="none" stroke-width="1.5" />
+<rect x="1210.0" y="230.0" width="18.5" height="13.2" rx="2" fill="#cde2fb" stroke="none" stroke-width="1.5" />
+<rect x="1230.0" y="230.0" width="18.5" height="13.2" rx="2" fill="#cde2fb" stroke="none" stroke-width="1.5" />
+<circle cx="1002" cy="251.29999999999998" r="3.6" fill="#eb6834"/>
+<text x="1010.0" y="255.3" font-family="Arial, Helvetica, sans-serif" font-size="11.2" font-weight="400" fill="#52514e" text-anchor="start" >GBM ratio</text>
+<rect x="1090.0" y="244.7" width="18.5" height="13.2" rx="2" fill="#9ec5f4" stroke="none" stroke-width="1.5" />
+<rect x="1110.0" y="244.7" width="18.5" height="13.2" rx="2" fill="#9ec5f4" stroke="none" stroke-width="1.5" />
+<rect x="1130.0" y="244.7" width="18.5" height="13.2" rx="2" fill="#9ec5f4" stroke="none" stroke-width="1.5" />
+<rect x="1150.0" y="244.7" width="18.5" height="13.2" rx="2" fill="#9ec5f4" stroke="none" stroke-width="1.5" />
+<rect x="1170.0" y="244.7" width="18.5" height="13.2" rx="2" fill="#3987e5" stroke="none" stroke-width="1.5" />
+<rect x="1190.0" y="244.7" width="18.5" height="13.2" rx="2" fill="#3987e5" stroke="none" stroke-width="1.5" />
+<rect x="1210.0" y="244.7" width="18.5" height="13.2" rx="2" fill="#3987e5" stroke="none" stroke-width="1.5" />
+<rect x="1230.0" y="244.7" width="18.5" height="13.2" rx="2" fill="#256abf" stroke="none" stroke-width="1.5" />
+<circle cx="1002" cy="266.0" r="3.6" fill="#2a78d6"/>
+<text x="1010.0" y="270.0" font-family="Arial, Helvetica, sans-serif" font-size="11.2" font-weight="400" fill="#52514e" text-anchor="start" >C2</text>
+<rect x="1090.0" y="259.4" width="18.5" height="13.2" rx="2" fill="#9ec5f4" stroke="none" stroke-width="1.5" />
+<rect x="1110.0" y="259.4" width="18.5" height="13.2" rx="2" fill="#9ec5f4" stroke="none" stroke-width="1.5" />
+<rect x="1130.0" y="259.4" width="18.5" height="13.2" rx="2" fill="#f1f1ef" stroke="none" stroke-width="1.5" />
+<rect x="1150.0" y="259.4" width="18.5" height="13.2" rx="2" fill="#f1f1ef" stroke="none" stroke-width="1.5" />
+<rect x="1170.0" y="259.4" width="18.5" height="13.2" rx="2" fill="#f1f1ef" stroke="none" stroke-width="1.5" />
+<rect x="1190.0" y="259.4" width="18.5" height="13.2" rx="2" fill="#f1f1ef" stroke="none" stroke-width="1.5" />
+<rect x="1210.0" y="259.4" width="18.5" height="13.2" rx="2" fill="#f1f1ef" stroke="none" stroke-width="1.5" />
+<rect x="1230.0" y="259.4" width="18.5" height="13.2" rx="2" fill="#f1f1ef" stroke="none" stroke-width="1.5" />
+<circle cx="1002" cy="280.70000000000005" r="3.6" fill="#2a78d6"/>
+<text x="1010.0" y="284.7" font-family="Arial, Helvetica, sans-serif" font-size="11.2" font-weight="400" fill="#52514e" text-anchor="start" >TS</text>
+<rect x="1090.0" y="274.1" width="18.5" height="13.2" rx="2" fill="#f1f1ef" stroke="none" stroke-width="1.5" />
+<rect x="1110.0" y="274.1" width="18.5" height="13.2" rx="2" fill="#f1f1ef" stroke="none" stroke-width="1.5" />
+<rect x="1130.0" y="274.1" width="18.5" height="13.2" rx="2" fill="#f1f1ef" stroke="none" stroke-width="1.5" />
+<rect x="1150.0" y="274.1" width="18.5" height="13.2" rx="2" fill="#f1f1ef" stroke="none" stroke-width="1.5" />
+<rect x="1170.0" y="274.1" width="18.5" height="13.2" rx="2" fill="#184f95" stroke="none" stroke-width="1.5" />
+<rect x="1190.0" y="274.1" width="18.5" height="13.2" rx="2" fill="#256abf" stroke="none" stroke-width="1.5" />
+<rect x="1210.0" y="274.1" width="18.5" height="13.2" rx="2" fill="#f1f1ef" stroke="none" stroke-width="1.5" />
+<rect x="1230.0" y="274.1" width="18.5" height="13.2" rx="2" fill="#f1f1ef" stroke="none" stroke-width="1.5" />
+<circle cx="1002" cy="295.40000000000003" r="3.6" fill="#2a78d6"/>
+<text x="1010.0" y="299.4" font-family="Arial, Helvetica, sans-serif" font-size="11.2" font-weight="400" fill="#52514e" text-anchor="start" >C2 fine-tuned</text>
+<rect x="1090.0" y="288.8" width="18.5" height="13.2" rx="2" fill="#cde2fb" stroke="none" stroke-width="1.5" />
+<rect x="1110.0" y="288.8" width="18.5" height="13.2" rx="2" fill="#cde2fb" stroke="none" stroke-width="1.5" />
+<rect x="1130.0" y="288.8" width="18.5" height="13.2" rx="2" fill="#cde2fb" stroke="none" stroke-width="1.5" />
+<rect x="1150.0" y="288.8" width="18.5" height="13.2" rx="2" fill="#9ec5f4" stroke="none" stroke-width="1.5" />
+<rect x="1170.0" y="288.8" width="18.5" height="13.2" rx="2" fill="#cde2fb" stroke="none" stroke-width="1.5" />
+<rect x="1190.0" y="288.8" width="18.5" height="13.2" rx="2" fill="#9ec5f4" stroke="none" stroke-width="1.5" />
+<rect x="1210.0" y="288.8" width="18.5" height="13.2" rx="2" fill="#256abf" stroke="none" stroke-width="1.5" />
+<rect x="1230.0" y="288.8" width="18.5" height="13.2" rx="2" fill="#9ec5f4" stroke="none" stroke-width="1.5" />
+<circle cx="1002" cy="310.1" r="3.6" fill="#008300"/>
+<text x="1010.0" y="314.1" font-family="Arial, Helvetica, sans-serif" font-size="11.2" font-weight="400" fill="#52514e" text-anchor="start" >PIBM</text>
+<rect x="1090.0" y="303.5" width="18.5" height="13.2" rx="2" fill="#cde2fb" stroke="none" stroke-width="1.5" />
+<rect x="1110.0" y="303.5" width="18.5" height="13.2" rx="2" fill="#9ec5f4" stroke="none" stroke-width="1.5" />
+<rect x="1130.0" y="303.5" width="18.5" height="13.2" rx="2" fill="#9ec5f4" stroke="none" stroke-width="1.5" />
+<rect x="1150.0" y="303.5" width="18.5" height="13.2" rx="2" fill="#9ec5f4" stroke="none" stroke-width="1.5" />
+<rect x="1170.0" y="303.5" width="18.5" height="13.2" rx="2" fill="#cde2fb" stroke="none" stroke-width="1.5" />
+<rect x="1190.0" y="303.5" width="18.5" height="13.2" rx="2" fill="#cde2fb" stroke="none" stroke-width="1.5" />
+<rect x="1210.0" y="303.5" width="18.5" height="13.2" rx="2" fill="#9ec5f4" stroke="none" stroke-width="1.5" />
+<rect x="1230.0" y="303.5" width="18.5" height="13.2" rx="2" fill="#cde2fb" stroke="none" stroke-width="1.5" />
+<circle cx="1002" cy="324.8" r="3.6" fill="#2a78d6"/>
+<text x="1010.0" y="328.8" font-family="Arial, Helvetica, sans-serif" font-size="11.2" font-weight="400" fill="#52514e" text-anchor="start" >C2 ctx 2048</text>
+<rect x="1090.0" y="318.2" width="18.5" height="13.2" rx="2" fill="#9ec5f4" stroke="none" stroke-width="1.5" />
+<rect x="1110.0" y="318.2" width="18.5" height="13.2" rx="2" fill="#9ec5f4" stroke="none" stroke-width="1.5" />
+<rect x="1130.0" y="318.2" width="18.5" height="13.2" rx="2" fill="#9ec5f4" stroke="none" stroke-width="1.5" />
+<rect x="1150.0" y="318.2" width="18.5" height="13.2" rx="2" fill="#6da7ec" stroke="none" stroke-width="1.5" />
+<rect x="1170.0" y="318.2" width="18.5" height="13.2" rx="2" fill="#9ec5f4" stroke="none" stroke-width="1.5" />
+<rect x="1190.0" y="318.2" width="18.5" height="13.2" rx="2" fill="#9ec5f4" stroke="none" stroke-width="1.5" />
+<rect x="1210.0" y="318.2" width="18.5" height="13.2" rx="2" fill="#6da7ec" stroke="none" stroke-width="1.5" />
+<rect x="1230.0" y="318.2" width="18.5" height="13.2" rx="2" fill="#9ec5f4" stroke="none" stroke-width="1.5" />
+<circle cx="1002" cy="339.5" r="3.6" fill="#2a78d6"/>
+<text x="1010.0" y="343.5" font-family="Arial, Helvetica, sans-serif" font-size="11.2" font-weight="400" fill="#52514e" text-anchor="start" >TS ctx 2048</text>
+<rect x="1090.0" y="332.9" width="18.5" height="13.2" rx="2" fill="#6da7ec" stroke="none" stroke-width="1.5" />
+<rect x="1110.0" y="332.9" width="18.5" height="13.2" rx="2" fill="#184f95" stroke="none" stroke-width="1.5" />
+<rect x="1130.0" y="332.9" width="18.5" height="13.2" rx="2" fill="#3987e5" stroke="none" stroke-width="1.5" />
+<rect x="1150.0" y="332.9" width="18.5" height="13.2" rx="2" fill="#cde2fb" stroke="none" stroke-width="1.5" />
+<rect x="1170.0" y="332.9" width="18.5" height="13.2" rx="2" fill="#f1f1ef" stroke="none" stroke-width="1.5" />
+<rect x="1190.0" y="332.9" width="18.5" height="13.2" rx="2" fill="#f1f1ef" stroke="none" stroke-width="1.5" />
+<rect x="1210.0" y="332.9" width="18.5" height="13.2" rx="2" fill="#cde2fb" stroke="none" stroke-width="1.5" />
+<rect x="1230.0" y="332.9" width="18.5" height="13.2" rx="2" fill="#f1f1ef" stroke="none" stroke-width="1.5" />
+<circle cx="1002" cy="354.20000000000005" r="3.6" fill="#2a78d6"/>
+<text x="1010.0" y="358.2" font-family="Arial, Helvetica, sans-serif" font-size="11.2" font-weight="400" fill="#52514e" text-anchor="start" >C2 upwind</text>
+<rect x="1090.0" y="347.6" width="18.5" height="13.2" rx="2" fill="#cde2fb" stroke="none" stroke-width="1.5" />
+<rect x="1110.0" y="347.6" width="18.5" height="13.2" rx="2" fill="#f1f1ef" stroke="none" stroke-width="1.5" />
+<rect x="1130.0" y="347.6" width="18.5" height="13.2" rx="2" fill="#6da7ec" stroke="none" stroke-width="1.5" />
+<rect x="1150.0" y="347.6" width="18.5" height="13.2" rx="2" fill="#9ec5f4" stroke="none" stroke-width="1.5" />
+<rect x="1170.0" y="347.6" width="18.5" height="13.2" rx="2" fill="#f1f1ef" stroke="none" stroke-width="1.5" />
+<rect x="1190.0" y="347.6" width="18.5" height="13.2" rx="2" fill="#f1f1ef" stroke="none" stroke-width="1.5" />
+<rect x="1210.0" y="347.6" width="18.5" height="13.2" rx="2" fill="#f1f1ef" stroke="none" stroke-width="1.5" />
+<rect x="1230.0" y="347.6" width="18.5" height="13.2" rx="2" fill="#f1f1ef" stroke="none" stroke-width="1.5" />
+<circle cx="1002" cy="368.9" r="3.6" fill="#2a78d6"/>
+<text x="1010.0" y="372.9" font-family="Arial, Helvetica, sans-serif" font-size="11.2" font-weight="400" fill="#52514e" text-anchor="start" >TS upwind</text>
+<rect x="1090.0" y="362.3" width="18.5" height="13.2" rx="2" fill="#3987e5" stroke="none" stroke-width="1.5" />
+<rect x="1110.0" y="362.3" width="18.5" height="13.2" rx="2" fill="#3987e5" stroke="none" stroke-width="1.5" />
+<rect x="1130.0" y="362.3" width="18.5" height="13.2" rx="2" fill="#3987e5" stroke="none" stroke-width="1.5" />
+<rect x="1150.0" y="362.3" width="18.5" height="13.2" rx="2" fill="#104281" stroke="none" stroke-width="1.5" />
+<rect x="1170.0" y="362.3" width="18.5" height="13.2" rx="2" fill="#3987e5" stroke="none" stroke-width="1.5" />
+<rect x="1190.0" y="362.3" width="18.5" height="13.2" rx="2" fill="#3987e5" stroke="none" stroke-width="1.5" />
+<rect x="1210.0" y="362.3" width="18.5" height="13.2" rx="2" fill="#3987e5" stroke="none" stroke-width="1.5" />
+<rect x="1230.0" y="362.3" width="18.5" height="13.2" rx="2" fill="#0d366b" stroke="none" stroke-width="1.5" />
+<text x="1090.0" y="389.0" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="400" fill="#8a8984" text-anchor="start" >target hour (IST) →</text>
+<rect x="1186.0" y="381.0" width="7.0" height="8.0" rx="0" fill="#cde2fb" stroke="none" stroke-width="1.5" />
+<rect x="1193.0" y="381.0" width="7.0" height="8.0" rx="0" fill="#9ec5f4" stroke="none" stroke-width="1.5" />
+<rect x="1200.0" y="381.0" width="7.0" height="8.0" rx="0" fill="#6da7ec" stroke="none" stroke-width="1.5" />
+<rect x="1207.0" y="381.0" width="7.0" height="8.0" rx="0" fill="#3987e5" stroke="none" stroke-width="1.5" />
+<rect x="1214.0" y="381.0" width="7.0" height="8.0" rx="0" fill="#256abf" stroke="none" stroke-width="1.5" />
+<rect x="1221.0" y="381.0" width="7.0" height="8.0" rx="0" fill="#184f95" stroke="none" stroke-width="1.5" />
+<rect x="1228.0" y="381.0" width="7.0" height="8.0" rx="0" fill="#104281" stroke="none" stroke-width="1.5" />
+<rect x="1235.0" y="381.0" width="7.0" height="8.0" rx="0" fill="#0d366b" stroke="none" stroke-width="1.5" />
+<text x="1182.0" y="389.0" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="400" fill="#8a8984" text-anchor="end" >0</text>
+<text x="1246.0" y="389.0" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="400" fill="#8a8984" text-anchor="start" >0.5</text>
+<rect x="986.0" y="404.0" width="292.0" height="314.0" rx="9" fill="#efedfb" stroke="#6250d6" stroke-width="1.4" />
+<path d="M995,404 h0 a0 0 0 0 0 0 0" fill="none"/>
+<rect x="986.0" y="413.0" width="4.5" height="296.0" rx="2" fill="#6250d6" stroke="none" stroke-width="1.5" />
+<text x="1000.0" y="425.0" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#0b0b0b" text-anchor="start" >Festival tilt</text>
+<rect x="1214.0" y="411.0" width="56.0" height="20.0" rx="10" fill="#fff4d6" stroke="#eda100" stroke-width="1.2" />
+<polygon points="1226.0,414.5 1227.7,418.6 1232.2,419.0 1228.8,421.9 1229.8,426.3 1226.0,423.9 1222.2,426.3 1223.2,421.9 1219.8,419.0 1224.3,418.6" fill="#eda100" stroke="#eda100" stroke-width="1" stroke-linejoin="round"/>
+<text x="1236.0" y="425.5" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#6b4800" text-anchor="start" >novel</text>
+<text x="1000.0" y="450.0" fill="#0b0b0b" text-anchor="start" font-family="'Cambria Math', 'Times New Roman', serif"><tspan dy="0.00" font-size="15.00" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">T0 ∈ [D, D+4]:   p̂ = ½ p</tspan><tspan dy="4.20" font-size="10.50" font-style="normal" font-family="Arial, Helvetica, sans-serif">NNLS</tspan><tspan dy="-4.20" font-size="15.00" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif"> + ½ p</tspan><tspan dy="4.20" font-size="10.50" font-style="normal" font-family="Arial, Helvetica, sans-serif">FT</tspan></text>
+<text x="1000.0" y="472.0" font-family="Arial, Helvetica, sans-serif" font-size="12.3" font-weight="400" fill="#52514e" text-anchor="start" >post-Diwali the blend over-forecasts ×1.16–1.82;</text>
+<text x="1000.0" y="487.5" font-family="Arial, Helvetica, sans-serif" font-size="12.3" font-weight="400" fill="#52514e" text-anchor="start" >the fine-tuned member is the least biased</text>
+<line x1="1026.0" y1="658.6" x2="1262.0" y2="658.6" stroke="#ecebe8" stroke-width="1" stroke-linecap="round" />
+<text x="1021.0" y="662.1" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="400" fill="#8a8984" text-anchor="end" >40</text>
+<line x1="1026.0" y1="597.2" x2="1262.0" y2="597.2" stroke="#ecebe8" stroke-width="1" stroke-linecap="round" />
+<text x="1021.0" y="600.7" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="400" fill="#8a8984" text-anchor="end" >80</text>
+<line x1="1026.0" y1="535.7" x2="1262.0" y2="535.7" stroke="#ecebe8" stroke-width="1" stroke-linecap="round" />
+<text x="1021.0" y="539.2" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="400" fill="#8a8984" text-anchor="end" >120</text>
+<line x1="1026.0" y1="674.0" x2="1262.0" y2="674.0" stroke="#8a8984" stroke-width="1" stroke-linecap="round" />
+<text x="1026.0" y="687.0" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="400" fill="#8a8984" text-anchor="middle" >3 h</text>
+<text x="1144.0" y="687.0" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="400" fill="#8a8984" text-anchor="middle" >27 h</text>
+<text x="1262.0" y="687.0" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="400" fill="#8a8984" text-anchor="middle" >51 h</text>
+<text x="996.0" y="520.0" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="400" fill="#8a8984" text-anchor="start" >µg/m³</text>
+<path d="M1026.0,541.7 L1030.9,563.0 L1035.8,566.6 L1040.8,570.3 L1045.7,580.4 L1050.6,584.6 L1055.5,586.6 L1060.4,591.2 L1065.3,596.4 L1070.2,607.1 L1075.2,617.4 L1080.1,625.0 L1085.0,629.1 L1089.9,631.3 L1094.8,635.4 L1099.8,637.1 L1104.7,637.0 L1109.6,637.0 L1114.5,634.8 L1119.4,620.7 L1124.3,604.5 L1129.2,589.3 L1134.2,583.8 L1139.1,579.6 L1144.0,572.1 L1148.9,576.6 L1153.8,578.1 L1158.8,581.6 L1163.7,587.2 L1168.6,591.6 L1173.5,595.5 L1178.4,601.9 L1183.3,606.2 L1188.2,611.9 L1193.2,615.0 L1198.1,621.1 L1203.0,627.7 L1207.9,632.7 L1212.8,634.7 L1217.8,637.1 L1222.7,637.1 L1227.6,636.8 L1232.5,634.2 L1237.4,625.7 L1242.3,614.2 L1247.2,603.8 L1252.2,596.4 L1257.1,590.7 L1262.0,580.4" fill="none" stroke="#6250d6" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="5 3"/>
+<path d="M1026.0,586.1 L1030.9,602.4 L1035.8,605.8 L1040.8,609.1 L1045.7,613.6 L1050.6,615.9 L1055.5,615.6 L1060.4,618.5 L1065.3,623.1 L1070.2,632.0 L1075.2,640.2 L1080.1,647.4 L1085.0,648.8 L1089.9,650.8 L1094.8,652.2 L1099.8,653.1 L1104.7,654.5 L1109.6,655.1 L1114.5,653.9 L1119.4,650.5 L1124.3,646.0 L1129.2,641.6 L1134.2,638.2 L1139.1,635.4 L1144.0,633.0 L1148.9,635.4 L1153.8,635.4 L1158.8,636.7 L1163.7,637.7 L1168.6,637.9 L1173.5,635.6 L1178.4,635.4 L1183.3,636.8 L1188.2,640.5 L1193.2,646.0 L1198.1,648.9 L1203.0,651.9 L1207.9,653.3 L1212.8,653.9 L1217.8,654.5 L1222.7,655.3 L1227.6,655.4 L1232.5,653.1 L1237.4,650.9 L1242.3,646.6 L1247.2,642.6 L1252.2,647.1 L1257.1,645.7 L1262.0,639.1" fill="none" stroke="#2a78d6" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1026.0,535.1 L1030.9,542.9 L1035.8,560.4 L1040.8,563.0 L1045.7,576.9 L1050.6,593.6 L1055.5,598.2 L1060.4,606.4 L1065.3,611.5 L1070.2,623.3 L1075.2,636.5 L1080.1,644.0 L1085.0,646.5 L1089.9,644.8 L1094.8,644.5 L1099.8,645.0 L1104.7,640.5 L1109.6,639.3 L1114.5,643.3 L1119.4,638.8 L1124.3,625.9 L1129.2,619.7 L1134.2,619.0 L1139.1,618.2 L1144.0,612.4 L1148.9,615.1 L1153.8,609.9 L1158.8,621.9 L1163.7,629.9 L1168.6,627.4 L1173.5,623.7 L1178.4,615.9 L1183.3,617.0 L1188.2,626.4 L1193.2,629.0 L1198.1,633.9 L1203.0,641.1 L1207.9,644.3 L1212.8,644.5 L1217.8,641.1 L1222.7,640.5 L1227.6,645.4 L1232.5,643.9 L1237.4,641.4 L1242.3,633.4 L1247.2,623.0 L1252.2,618.5 L1257.1,619.4 L1262.0,610.4" fill="none" stroke="#0b0b0b" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M1026.0,564.0 L1030.9,582.7 L1035.8,586.2 L1040.8,589.8 L1045.7,597.0 L1050.6,600.2 L1055.5,601.2 L1060.4,604.8 L1065.3,609.8 L1070.2,619.6 L1075.2,628.8 L1080.1,636.2 L1085.0,639.0 L1089.9,641.1 L1094.8,643.9 L1099.8,645.1 L1104.7,645.7 L1109.6,646.0 L1114.5,644.3 L1119.4,635.6 L1124.3,625.3 L1129.2,615.4 L1134.2,611.0 L1139.1,607.6 L1144.0,602.5 L1148.9,605.9 L1153.8,606.8 L1158.8,609.1 L1163.7,612.5 L1168.6,614.8 L1173.5,615.6 L1178.4,618.7 L1183.3,621.6 L1188.2,626.2 L1193.2,630.5 L1198.1,635.0 L1203.0,639.9 L1207.9,643.0 L1212.8,644.2 L1217.8,645.9 L1222.7,646.2 L1227.6,646.2 L1232.5,643.7 L1237.4,638.3 L1242.3,630.4 L1247.2,623.1 L1252.2,621.7 L1257.1,618.2 L1262.0,609.8" fill="none" stroke="#6250d6" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="1000.0" y1="504.0" x2="1016.0" y2="504.0" stroke="#0b0b0b" stroke-width="2.0" stroke-linecap="round" />
+<text x="1020.0" y="508.0" font-family="Arial, Helvetica, sans-serif" font-size="11.2" font-weight="400" fill="#52514e" text-anchor="start" >obs</text>
+<line x1="1048.3" y1="504.0" x2="1064.3" y2="504.0" stroke="#6250d6" stroke-width="1.8" stroke-dasharray="5 3" stroke-linecap="round" />
+<text x="1068.3" y="508.0" font-family="Arial, Helvetica, sans-serif" font-size="11.2" font-weight="400" fill="#52514e" text-anchor="start" >NNLS 19.9</text>
+<line x1="1133.2" y1="504.0" x2="1149.2" y2="504.0" stroke="#2a78d6" stroke-width="1.8" stroke-linecap="round" />
+<text x="1153.2" y="508.0" font-family="Arial, Helvetica, sans-serif" font-size="11.2" font-weight="400" fill="#52514e" text-anchor="start" >FT 23.6</text>
+<line x1="1205.9" y1="504.0" x2="1221.9" y2="504.0" stroke="#6250d6" stroke-width="2.8" stroke-linecap="round" />
+<text x="1225.9" y="508.0" font-family="Arial, Helvetica, sans-serif" font-size="11.2" font-weight="700" fill="#52514e" text-anchor="start" >tilt 17.0</text>
+<text x="1000.0" y="494.0" font-family="Arial, Helvetica, sans-serif" font-size="1" font-weight="400" fill="#0b0b0b" text-anchor="start" ></text>
+<text x="1266.0" y="708.0" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="400" fill="#8a8984" text-anchor="end" >example: Diwali+2 origin, 2024, 5 stations</text>
+<path d="M957,210.0 C970.0,210.0 970.0,259.0 981,259.0" fill="none" stroke="#52514e" stroke-width="1.4" marker-end="url(#ar)"/>
+<path d="M957,344.0 C970.0,344.0 970.0,259.0 981,259.0" fill="none" stroke="#52514e" stroke-width="1.4" marker-end="url(#ar)"/>
+<path d="M957,432.0 C970.0,432.0 970.0,259.0 981,259.0" fill="none" stroke="#52514e" stroke-width="1.4" marker-end="url(#ar)"/>
+<path d="M957,600.0 C970.0,600.0 970.0,259.0 981,259.0" fill="none" stroke="#52514e" stroke-width="1.4" marker-end="url(#ar)"/>
+<path d="M957,352.0 C970.0,352.0 970.0,474.0 981,474.0" fill="none" stroke="#2a78d6" stroke-width="1.8" marker-end="url(#arb)"/>
+<line x1="1132.0" y1="393.0" x2="1132.0" y2="403.0" stroke="#6250d6" stroke-width="1.8" marker-end="url(#arv)" stroke-linecap="round" />
+<rect x="1310.0" y="126.0" width="270.0" height="326.0" rx="9" fill="#fcecf2" stroke="#d55181" stroke-width="1.4" />
+<path d="M1319,126 h0 a0 0 0 0 0 0 0" fill="none"/>
+<rect x="1310.0" y="135.0" width="4.5" height="308.0" rx="2" fill="#d55181" stroke="none" stroke-width="1.5" />
+<text x="1324.0" y="147.0" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#0b0b0b" text-anchor="start" >Best-of-two hedge</text>
+<rect x="1516.0" y="133.0" width="56.0" height="20.0" rx="10" fill="#fff4d6" stroke="#eda100" stroke-width="1.2" />
+<polygon points="1528.0,136.5 1529.7,140.6 1534.2,141.0 1530.8,143.9 1531.8,148.3 1528.0,145.9 1524.2,148.3 1525.2,143.9 1521.8,141.0 1526.3,140.6" fill="#eda100" stroke="#eda100" stroke-width="1" stroke-linejoin="round"/>
+<text x="1538.0" y="147.5" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#6b4800" text-anchor="start" >novel</text>
+<text x="1324.0" y="166.0" font-family="Arial, Helvetica, sans-serif" font-size="12.3" font-weight="400" fill="#52514e" text-anchor="start" >the private score of a team is the better</text>
+<text x="1324.0" y="181.5" font-family="Arial, Helvetica, sans-serif" font-size="12.3" font-weight="400" fill="#52514e" text-anchor="start" >of its 2 selected submissions</text>
+<text x="1324.0" y="210.0" fill="#0b0b0b" text-anchor="start" font-family="'Cambria Math', 'Times New Roman', serif"><tspan dy="0.00" font-size="15.00" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">(a, b) = </tspan><tspan dy="0.00" font-size="15.00" font-style="normal" font-family="'Cambria Math', 'Times New Roman', serif">arg min</tspan><tspan dy="4.20" font-size="10.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">a, b</tspan></text>
+<text x="1344.0" y="232.0" fill="#0b0b0b" text-anchor="start" font-family="'Cambria Math', 'Times New Roman', serif"><tspan dy="0.00" font-size="15.00" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">𝔼</tspan><tspan dy="4.20" font-size="10.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">w</tspan><tspan dy="-4.20" font-size="15.00" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">[ </tspan><tspan dy="0.00" font-size="15.00" font-style="normal" font-family="'Cambria Math', 'Times New Roman', serif">min</tspan><tspan dy="0.00" font-size="15.00" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">( ε</tspan><tspan dy="4.20" font-size="10.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">w</tspan><tspan dy="-4.20" font-size="15.00" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">(a p̂), ε</tspan><tspan dy="4.20" font-size="10.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">w</tspan><tspan dy="-4.20" font-size="15.00" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">(b p̂) ) ]</tspan></text>
+<text x="1324.0" y="254.0" fill="#52514e" text-anchor="start" font-family="'Cambria Math', 'Times New Roman', serif"><tspan dy="0.00" font-size="12.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">ε</tspan><tspan dy="3.50" font-size="8.75" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">w</tspan><tspan dy="-3.50" font-size="12.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">: </tspan><tspan dy="0.00" font-size="12.50" font-style="normal" font-family="'Cambria Math', 'Times New Roman', serif">RMSE of one backtest window</tspan></text>
+<text x="1324.0" y="270.0" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#52514e" text-anchor="start" >(one origin, all stations, leads 3–51 h)</text>
+<path d="M1344.7,396.0 v-0.5 q0,-3 3,-3 h3.7 q3,0 3,3 v0.5 z" fill="#c9c8c3"/>
+<path d="M1368.1,396.0 v-0.5 q0,-3 3,-3 h3.7 q3,0 3,3 v0.5 z" fill="#c9c8c3"/>
+<path d="M1379.8,396.0 v-11.2 q0,-3 3,-3 h3.7 q3,0 3,3 v11.2 z" fill="#c9c8c3"/>
+<path d="M1391.5,396.0 v-7.6 q0,-3 3,-3 h3.7 q3,0 3,3 v7.6 z" fill="#c9c8c3"/>
+<path d="M1403.2,396.0 v-39.5 q0,-3 3,-3 h3.7 q3,0 3,3 v39.5 z" fill="#c9c8c3"/>
+<path d="M1414.9,396.0 v-85.5 q0,-3 3,-3 h3.7 q3,0 3,3 v85.5 z" fill="#c9c8c3"/>
+<path d="M1426.6,396.0 v-89.0 q0,-3 3,-3 h3.7 q3,0 3,3 v89.0 z" fill="#c9c8c3"/>
+<path d="M1438.3,396.0 v-78.4 q0,-3 3,-3 h3.7 q3,0 3,3 v78.4 z" fill="#c9c8c3"/>
+<path d="M1450.0,396.0 v-28.8 q0,-3 3,-3 h3.7 q3,0 3,3 v28.8 z" fill="#c9c8c3"/>
+<path d="M1461.7,396.0 v-32.4 q0,-3 3,-3 h3.7 q3,0 3,3 v32.4 z" fill="#c9c8c3"/>
+<path d="M1473.4,396.0 v-7.6 q0,-3 3,-3 h3.7 q3,0 3,3 v7.6 z" fill="#c9c8c3"/>
+<path d="M1485.1,396.0 v-4.1 q0,-3 3,-3 h3.7 q3,0 3,3 v4.1 z" fill="#c9c8c3"/>
+<path d="M1496.8,396.0 v-7.6 q0,-3 3,-3 h3.7 q3,0 3,3 v7.6 z" fill="#c9c8c3"/>
+<path d="M1508.5,396.0 v-4.1 q0,-3 3,-3 h3.7 q3,0 3,3 v4.1 z" fill="#c9c8c3"/>
+<path d="M1520.2,396.0 v-0.5 q0,-3 3,-3 h3.7 q3,0 3,3 v0.5 z" fill="#c9c8c3"/>
+<path d="M1543.6,396.0 v-0.5 q0,-3 3,-3 h3.7 q3,0 3,3 v0.5 z" fill="#c9c8c3"/>
+<path d="M1555.3,396.0 v-0.5 q0,-3 3,-3 h3.7 q3,0 3,3 v0.5 z" fill="#c9c8c3"/>
+<line x1="1332.0" y1="396.0" x2="1566.0" y2="396.0" stroke="#8a8984" stroke-width="1" stroke-linecap="round" />
+<text x="1343.7" y="409.0" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="400" fill="#8a8984" text-anchor="middle" >0.6</text>
+<text x="1390.5" y="409.0" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="400" fill="#8a8984" text-anchor="middle" >0.8</text>
+<text x="1437.3" y="409.0" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="400" fill="#8a8984" text-anchor="middle" >1.0</text>
+<text x="1484.1" y="409.0" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="400" fill="#8a8984" text-anchor="middle" >1.2</text>
+<text x="1530.9" y="409.0" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="400" fill="#8a8984" text-anchor="middle" >1.4</text>
+<line x1="1423.3" y1="298.0" x2="1423.3" y2="396.0" stroke="#d55181" stroke-width="2.2" stroke-linecap="round" />
+<text x="1419.3" y="294.0" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#0b0b0b" text-anchor="end" >a = 0.94</text>
+<line x1="1458.4" y1="298.0" x2="1458.4" y2="396.0" stroke="#d55181" stroke-width="2.2" stroke-linecap="round" />
+<text x="1462.4" y="294.0" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#0b0b0b" text-anchor="start" >b = 1.09</text>
+<text x="1566.0" y="426.0" fill="#8a8984" text-anchor="end" font-family="'Cambria Math', 'Times New Roman', serif"><tspan dy="0.00" font-size="12.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">s*</tspan><tspan dy="3.50" font-size="8.75" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">w</tspan><tspan dy="-3.50" font-size="12.50" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif"> = ⟨y, p̂⟩ / ‖p̂‖²   </tspan><tspan dy="0.00" font-size="12.50" font-style="normal" font-family="'Cambria Math', 'Times New Roman', serif">(127 windows)</tspan></text>
+<rect x="1310.0" y="464.0" width="270.0" height="46.0" rx="8" fill="#ffffff" stroke="#d55181" stroke-width="1.6" />
+<path d="M1324,473 h16 l6,6 v22 h-22 z" fill="#fcecf2" stroke="#d55181" stroke-width="1.2" stroke-linejoin="round"/>
+<text x="1356.0" y="484.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#0b0b0b" text-anchor="start" >Final 1</text>
+<text x="1356.0" y="501.0" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" fill="#8a8984" text-anchor="start" >192 private rows</text>
+<text x="1566.0" y="493.0" fill="#0b0b0b" text-anchor="end" font-family="'Cambria Math', 'Times New Roman', serif"><tspan dy="0.00" font-size="16.00" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">0.94 · p̂</tspan></text>
+<line x1="1445.0" y1="453.0" x2="1445.0" y2="463.0" stroke="#d55181" stroke-width="1.8" marker-end="url(#ard)" stroke-linecap="round" />
+<rect x="1310.0" y="520.0" width="270.0" height="46.0" rx="8" fill="#ffffff" stroke="#d55181" stroke-width="1.6" />
+<path d="M1324,529 h16 l6,6 v22 h-22 z" fill="#fcecf2" stroke="#d55181" stroke-width="1.2" stroke-linejoin="round"/>
+<text x="1356.0" y="540.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#0b0b0b" text-anchor="start" >Final 2</text>
+<text x="1356.0" y="557.0" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" fill="#8a8984" text-anchor="start" >192 private rows</text>
+<text x="1566.0" y="549.0" fill="#0b0b0b" text-anchor="end" font-family="'Cambria Math', 'Times New Roman', serif"><tspan dy="0.00" font-size="16.00" font-style="italic" font-family="'Cambria Math', 'Times New Roman', serif">1.09 · p̂</tspan></text>
+<rect x="1310.0" y="576.0" width="270.0" height="142.0" rx="8" fill="#fcecf2" stroke="none" stroke-width="1.5" />
+<text x="1322.0" y="596.0" font-family="Arial, Helvetica, sans-serif" font-size="12.0" font-weight="700" fill="#0b0b0b" text-anchor="start" >LOFO window RMSE, single → best of two</text>
+<text x="1322.0" y="616.0" font-family="Arial, Helvetica, sans-serif" font-size="12.3" font-weight="400" fill="#52514e" text-anchor="start" >fall 2024</text>
+<text x="1568.0" y="616.0" font-family="Arial, Helvetica, sans-serif" font-size="12.3" font-weight="700" fill="#0b0b0b" text-anchor="end" >15.24 → 14.64</text>
+<text x="1322.0" y="633.0" font-family="Arial, Helvetica, sans-serif" font-size="12.3" font-weight="400" fill="#52514e" text-anchor="start" >fall 2025</text>
+<text x="1568.0" y="633.0" font-family="Arial, Helvetica, sans-serif" font-size="12.3" font-weight="700" fill="#0b0b0b" text-anchor="end" >21.49 → 20.84</text>
+<text x="1322.0" y="650.0" font-family="Arial, Helvetica, sans-serif" font-size="12.3" font-weight="400" fill="#52514e" text-anchor="start" >Sep–Nov 2026</text>
+<text x="1568.0" y="650.0" font-family="Arial, Helvetica, sans-serif" font-size="12.3" font-weight="700" fill="#0b0b0b" text-anchor="end" >8.45 → 8.09</text>
+<path d="M1281,454.0 C1294.0,454.0 1294.0,289.0 1305,289.0" fill="none" stroke="#6250d6" stroke-width="2.2" marker-end="url(#arv)"/>
+<text x="1294.0" y="281.0" font-family="'Cambria Math', 'Times New Roman', serif" font-size="14" font-weight="400" fill="#6250d6" text-anchor="middle" font-style="italic" >p̂</text>
+<line x1="20.0" y1="734.0" x2="1580.0" y2="734.0" stroke="#d9d8d4" stroke-width="1.2" stroke-linecap="round" />
+<text x="20.0" y="758.0" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#0b0b0b" text-anchor="start" >Validation protocol</text>
+<circle cx="24" cy="774" r="2.6" fill="#52514e"/>
+<text x="34.0" y="778.0" font-family="Arial, Helvetica, sans-serif" font-size="12.8" font-weight="400" fill="#52514e" text-anchor="start" >Frozen data snapshots (md5); identical folds and daily 23:00 origins:</text>
+<text x="34.0" y="796.0" font-family="Arial, Helvetica, sans-serif" font-size="12.8" font-weight="400" fill="#52514e" text-anchor="start" >fall 2024, fall 2025, Sep–Nov 2026 · one clean out-of-fold set per experiment</text>
+<circle cx="24" cy="810" r="2.6" fill="#52514e"/>
+<text x="34.0" y="814.0" font-family="Arial, Helvetica, sans-serif" font-size="12.8" font-weight="400" fill="#52514e" text-anchor="start" >Leave-one-fold-out (LOFO) blending; a change is kept only if the LOFO mean</text>
+<text x="34.0" y="832.0" font-family="Arial, Helvetica, sans-serif" font-size="12.8" font-weight="400" fill="#52514e" text-anchor="start" >improves and the most recent fold does not get worse</text>
+<circle cx="24" cy="846" r="2.6" fill="#52514e"/>
+<text x="34.0" y="850.0" font-family="Arial, Helvetica, sans-serif" font-size="12.8" font-weight="400" fill="#52514e" text-anchor="start" >Rejected by this rule: TimesFM-3, t0-gamma, TimeH2O-v1, Aurora air-pollution,</text>
+<text x="34.0" y="868.0" font-family="Arial, Helvetica, sans-serif" font-size="12.8" font-weight="400" fill="#52514e" text-anchor="start" >multi-NWP ensemble, LightGBM stacker, Kalman bias correction,</text>
+<text x="34.0" y="886.0" font-family="Arial, Helvetica, sans-serif" font-size="12.8" font-weight="400" fill="#52514e" text-anchor="start" >festival-smoke context masking, lead-bucket weights</text>
+<text x="760.0" y="758.0" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#0b0b0b" text-anchor="start" >LOFO RMSE (µg/m³), lead 3–51 h, mean of 3 folds</text>
+<text x="1580.0" y="758.0" font-family="Arial, Helvetica, sans-serif" font-size="12.3" font-weight="700" fill="#52514e" text-anchor="end" >recent fold</text>
+<text x="760.0" y="781.5" font-family="Arial, Helvetica, sans-serif" font-size="12.3" font-weight="400" fill="#52514e" text-anchor="start" >Persistence (last value)</text>
+<path d="M992,771.0 h458.7 q3,0 3,3 v8 q0,3 -3,3 h-458.7 z" fill="#b9b8b3"/>
+<text x="1459.7" y="781.5" font-family="Arial, Helvetica, sans-serif" font-size="12.3" font-weight="400" fill="#0b0b0b" text-anchor="start" >35.36</text>
+<text x="1580.0" y="781.5" font-family="Arial, Helvetica, sans-serif" font-size="12.3" font-weight="400" fill="#0b0b0b" text-anchor="end" >13.76</text>
+<text x="760.0" y="802.0" font-family="Arial, Helvetica, sans-serif" font-size="12.3" font-weight="400" fill="#52514e" text-anchor="start" >PIBM (physics)</text>
+<path d="M992,791.5 h361.7 q3,0 3,3 v8 q0,3 -3,3 h-361.7 z" fill="#008300"/>
+<text x="1362.7" y="802.0" font-family="Arial, Helvetica, sans-serif" font-size="12.3" font-weight="400" fill="#0b0b0b" text-anchor="start" >27.93</text>
+<text x="1580.0" y="802.0" font-family="Arial, Helvetica, sans-serif" font-size="12.3" font-weight="400" fill="#0b0b0b" text-anchor="end" >11.66</text>
+<text x="760.0" y="822.5" font-family="Arial, Helvetica, sans-serif" font-size="12.3" font-weight="400" fill="#52514e" text-anchor="start" >LightGBM, ratio target</text>
+<path d="M992,812.0 h302.6 q3,0 3,3 v8 q0,3 -3,3 h-302.6 z" fill="#eb6834"/>
+<text x="1303.6" y="822.5" font-family="Arial, Helvetica, sans-serif" font-size="12.3" font-weight="400" fill="#0b0b0b" text-anchor="start" >23.41</text>
+<text x="1580.0" y="822.5" font-family="Arial, Helvetica, sans-serif" font-size="12.3" font-weight="400" fill="#0b0b0b" text-anchor="end" >9.60</text>
+<text x="760.0" y="843.0" font-family="Arial, Helvetica, sans-serif" font-size="12.3" font-weight="400" fill="#52514e" text-anchor="start" >Chronos-2, fine-tuned</text>
+<path d="M992,832.5 h295.3 q3,0 3,3 v8 q0,3 -3,3 h-295.3 z" fill="#2a78d6"/>
+<text x="1296.3" y="843.0" font-family="Arial, Helvetica, sans-serif" font-size="12.3" font-weight="400" fill="#0b0b0b" text-anchor="start" >22.85</text>
+<text x="1580.0" y="843.0" font-family="Arial, Helvetica, sans-serif" font-size="12.3" font-weight="400" fill="#0b0b0b" text-anchor="end" >9.26</text>
+<text x="760.0" y="863.5" font-family="Arial, Helvetica, sans-serif" font-size="12.3" font-weight="400" fill="#52514e" text-anchor="start" >Chronos-2, ctx 2048</text>
+<path d="M992,853.0 h293.7 q3,0 3,3 v8 q0,3 -3,3 h-293.7 z" fill="#2a78d6"/>
+<text x="1294.7" y="863.5" font-family="Arial, Helvetica, sans-serif" font-size="12.3" font-weight="400" fill="#0b0b0b" text-anchor="start" >22.73</text>
+<text x="1580.0" y="863.5" font-family="Arial, Helvetica, sans-serif" font-size="12.3" font-weight="400" fill="#0b0b0b" text-anchor="end" >9.54</text>
+<text x="760.0" y="884.0" font-family="Arial, Helvetica, sans-serif" font-size="12.3" font-weight="400" fill="#52514e" text-anchor="start" >Timestral + upwind (best single)</text>
+<path d="M992,873.5 h287.7 q3,0 3,3 v8 q0,3 -3,3 h-287.7 z" fill="#2a78d6"/>
+<text x="1288.7" y="884.0" font-family="Arial, Helvetica, sans-serif" font-size="12.3" font-weight="400" fill="#0b0b0b" text-anchor="start" >22.27</text>
+<text x="1580.0" y="884.0" font-family="Arial, Helvetica, sans-serif" font-size="12.3" font-weight="400" fill="#0b0b0b" text-anchor="end" >9.26</text>
+<text x="760.0" y="904.5" font-family="Arial, Helvetica, sans-serif" font-size="12.3" font-weight="400" fill="#52514e" text-anchor="start" >NNLS blend of 10</text>
+<path d="M992,894.0 h281.2 q3,0 3,3 v8 q0,3 -3,3 h-281.2 z" fill="#6250d6" opacity="0.55"/>
+<text x="1282.2" y="904.5" font-family="Arial, Helvetica, sans-serif" font-size="12.3" font-weight="400" fill="#0b0b0b" text-anchor="start" >21.77</text>
+<text x="1580.0" y="904.5" font-family="Arial, Helvetica, sans-serif" font-size="12.3" font-weight="400" fill="#0b0b0b" text-anchor="end" >8.73</text>
+<text x="760.0" y="925.0" font-family="Arial, Helvetica, sans-serif" font-size="12.3" font-weight="700" fill="#0b0b0b" text-anchor="start" >+ festival tilt (final central)</text>
+<path d="M992,914.5 h278.2 q3,0 3,3 v8 q0,3 -3,3 h-278.2 z" fill="#6250d6"/>
+<text x="1279.2" y="925.0" font-family="Arial, Helvetica, sans-serif" font-size="12.3" font-weight="700" fill="#0b0b0b" text-anchor="start" >21.54</text>
+<text x="1580.0" y="925.0" font-family="Arial, Helvetica, sans-serif" font-size="12.3" font-weight="700" fill="#0b0b0b" text-anchor="end" >8.73</text>
+<line x1="992.0" y1="766.0" x2="992.0" y2="934.0" stroke="#8a8984" stroke-width="1" stroke-linecap="round" /></svg>
