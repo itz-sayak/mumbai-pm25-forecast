@@ -217,6 +217,7 @@ for ts in hours:
     bx.plot(win.index, win.values, color="#7a1650", lw=1.6)
     bx.axvline(ts, color=INK, lw=1)
     bx.set_ylabel("city mean", color=MUTED, fontsize=8); bx.tick_params(labelsize=7.5, colors=MUTED)
+    bx.xaxis.set_major_locator(matplotlib.dates.HourLocator(byhour=[0, 12]))
     bx.xaxis.set_major_formatter(matplotlib.dates.DateFormatter("%d %b %H:%M"))
     for sp in ("top", "right"): bx.spines[sp].set_visible(False)
     fig.text(0.03, 0.965, "monitors (dots), IDW field over land, ECMWF IFS 10 m wind", fontsize=8, color=MUTED)
