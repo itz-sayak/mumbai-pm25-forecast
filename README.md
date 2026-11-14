@@ -3,6 +3,70 @@
 Forecast hourly PM2.5 at 4 CPCB/OpenAQ stations (Malad W, Shivaji Nagar, Borivali E, Byculla), 1–3 days ahead.
 Metric: RMSE. Private window = 11–12 Nov 2026 observations.
 
+![Diwali night over Mumbai, hourly](docs/img/mumbai_diwali_night.gif)
+
+## The 2026 Diwali smoke episode: what the weather did
+
+Real fields only:
+- CAMS global (ECMWF/Copernicus) PM2.5;
+- ECMWF IFS 0.25° 10 m wind;
+- GFS boundary-layer height;
+- 35 Mumbai CPCB / MPCB / IITM / BMC monitors via OpenAQ.
+
+Boundaries come from [datameet](https://github.com/datameet/maps) (state and 2011 census districts). Scripts are in [`viz/`](viz/): `python viz/fetch.py`, then `python viz/make_figures.py <boundaries dir>`. Times are IST.
+
+**1. Diwali smoke is a city-scale signal, not a regional one.**
+CAMS sees a broad 45–90 µg/m³ haze over interior Maharashtra and Telangana on Diwali night, with weak NE–E land winds. But the global model has no fireworks emissions and resolves Mumbai as one 0.4° cell, so it barely changes over the city. The monitors measured a city mean of **185 µg/m³** on Diwali night (peak **348** at 00:00 on 9 Nov), against **39** on an ordinary night a week earlier.
+![CAMS PM2.5 and ECMWF wind over Maharashtra](docs/img/fig1_maharashtra_cams_pm25_wind.png)
+
+**2. The lid comes down at night.**
+- At Mumbai the median mixing height is **~1,780 m at 14–16 h** and **~210 m at 01–05 h**.
+- Winds are light easterlies day and night (median ~1.5 m/s), so cleaning is done by vertical mixing, not by a sea breeze.
+- At 04:00 the ventilation coefficient (BLH × wind) is below 3,000 m²/s over the whole state, half the commonly used 6,000 m²/s "poor ventilation" limit.
+- Emissions released at 21:00–01:00 therefore accumulate in a ~200 m layer and only clear after the morning break-up (09–11 h).
+
+![Mixing height and ventilation, day vs night](docs/img/fig2_mixing_height_ventilation.png)
+
+**3. Fireworks smoke is patchy across the city.**
+- At 02:00 on Diwali night, Bandra Kurla Complex read **640 µg/m³** and Sion, 3.5 km away, 174.
+- The western suburbs (Malad, Kandivali) were above 380, while Borivali East read about 50.
+- By the next afternoon the mixed layer has wiped the field almost flat.
+- Squares on the maps are the four forecast stations.
+
+![Mumbai monitor field](docs/img/fig3_mumbai_monitor_field.png)
+
+**4. A daily heartbeat with festival bursts.**
+- Every high-PM2.5 block sits under the shallow nocturnal boundary layer (hours 20–08).
+- The festival nights (7–12 Nov) stand out in the same slot.
+- Blank cells are hours with too few monitors reporting.
+
+![Hour × date heatmaps](docs/img/fig4_diurnal_heatmaps.png)
+
+**5. Ventilation explains part of ordinary pollution, but not fireworks.**
+- In ordinary hours, city PM2.5 falls with log ventilation (r ≈ −0.38).
+- Festival hours sit about **+29 µg/m³** above that line at the same ventilation.
+- That excess is emissions, which no weather variable will predict.
+
+![Ventilation vs PM2.5](docs/img/fig5_ventilation_vs_pm25.png)
+
+**6. The scored window: Bhai Dooj night came after all.**
+
+| Forecast issued 10 Nov 20:00, 189 of 192 hours observed | RMSE all hours | Excluding the night of 11–12 Nov |
+|---|---|---|
+| Our high leg (counted) | 54.1 | **27.9** |
+| Our low leg | 59.6 | 33.2 |
+| 7-day same-hour mean | 48.0 | 34.6 |
+| Last value carried forward | 64.0 | n/a |
+
+- We had tested and dropped an extra fireworks night for Bhai Dooj (see *Bhai Dooj scenario* below). Calendars disagreed on 10 or 11 Nov, and the 2019/2024/2025 Bhai Dooj nights showed no excess.
+- In 2026 the night of 11 to 12 Nov brought a new city-wide spike: city mean 99, Shivaji Nagar about 480 µg/m³ at 00:00.
+- That one night is **80 % of our squared error**.
+- On every other hour our forecast beats the 7-day same-hour mean. That baseline only did well overall because its window contained Diwali night, so it reproduced a night-time spike by accident.
+- **Lesson for festival forecasting:** model the uncertain fireworks nights as a scenario (a high leg) rather than a 0/1 calendar decision.
+- *Note:* OpenAQ's hourly endpoint keeps only 2 of 4 readings for 00:00 and 01:00 (the UTC day boundary). A "≥3 readings" filter silently drops exactly those smoke hours, and the earlier quick scoring (37.5) used that filter.
+
+![Scored window](docs/img/fig6_scored_window.png)
+
 ## Final recipe (`src/predict.py` `RECIPE`, selected by clean ablations, see `experiments.csv`)
 
 | Member | What it is |
@@ -95,6 +159,7 @@ General pair: ×0.94 / ×1.09.
 - An optional high leg with an extra fireworks night on 11 Nov (`run_all.py --fw-hedge`, `FW_EXTRA_NIGHTS`) was tested. It is not used, for two reasons:
   - the foundation models barely respond to an isolated future flag (Chronos-2 night mean 42.6 → 42.7);
   - in 2024 and 2025 the blend still over-forecast Bhai Dooj nights (actual/forecast 0.68–0.84), with no reliable night excess over other post-Diwali nights.
+- **Outcome:** in 2026 there was a Bhai Dooj spike on the night of 11–12 Nov, and it dominated the scored-window error (see section 6 above).
 
 ## Novel components
 - **Lagrangian upwind neighbour signal:**
@@ -214,4 +279,5 @@ python run_all.py --tag rerun --skip-exp --fcst-tag <snapshot tag>   # reproduce
 - `src/blend_select.py` — NNLS blend with hour blocks
 - `src/hedge.py` — two-pick hedge (general and festival regime)
 - `src/predict.py` — final submission
+- `viz/fetch.py`, `viz/make_figures.py` — meteorology maps, heatmaps and the Diwali-night animation (`docs/img/`)
 - `src/leaderboard_io.py` — challenge platform API (data download, submit, leaderboard)
